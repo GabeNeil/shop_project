@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 from repositories import guitar_respository
 from repositories import manufacturer_repository
@@ -26,3 +26,4 @@ def add_manufacturer():
     name = request.form['name']
     manufacturer = Manufacturer(name)
     manufacturer_repository.save(manufacturer)
+    return redirect('/manufacturers')
