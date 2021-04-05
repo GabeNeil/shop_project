@@ -1,0 +1,43 @@
+from db.runner import run_sql
+
+from models.guitar import Guitar
+
+import repositories.manufacturer_repository as manufacturer_repository
+
+def save(guitar):
+    sql = "INSERT INTO guitars (name, description, quantity, buy_cost, sell_price, manufacturer_id) VALUES (%s, %s, %s, %s, %s, %s) RETURNING *"
+    values = [guitar.name, guitar.description, guitar.quantity, guitar.buy_cost, guitar.sell_price, guitar.manufacturer.id]
+    results = run_sql(sql, values)
+    id = results[0]['id']
+    guitar.id = id
+    return guitar 
+
+def delete_all():
+    sql =  "DELETE FROM guitars"
+    run_sql(sql)
+
+def select_all():
+    guitars = []
+
+    sql = "SELECT * FROM guitars"
+    results = run_sql(sql)
+
+    for row in results:
+        guitar = Guitar(row['name'], row['description'], row['quantity'], row['buy_cost'], row['sell_price'], row['manufacturer'])
+        guitars.append(guitar)
+    return guitars 
+
+
+def select(id):
+    guitar = None
+    sql = "SELECT * FROM books WHERE id = %s"
+    values = [id]
+    result run_sql(sql, values)[0]
+
+    if result is not None:
+        manufacturer = manufacturer_repository.select(result['author_id'])
+        guitar = Guitar(result['name'], result['description'], result['quantity'], result['buy_cost'], result['sell_price'], manufacturer, result['id'])
+
+    return guitar 
+
+

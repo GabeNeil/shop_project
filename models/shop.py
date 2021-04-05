@@ -1,7 +1,5 @@
 class Shop:
-    def __init__(self, name, till):
+    def __init__(self, name, till = 0):
         self.name = name 
-        self.till = 0
-        self.stock = []
-        self.manufacturers = []
+        self.till = till
 

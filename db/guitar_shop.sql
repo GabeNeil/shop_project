@@ -1,9 +1,11 @@
 DROP TABLE IF EXISTS guitars;
+
 DROP TABLE IF EXISTS manufacturers;
 
+
 CREATE TABLE manufacturers (
-    id SERIAL PRIMARY KEY
-    name VARCHAR, 
+    id SERIAL PRIMARY KEY,
+    name VARCHAR 
 );
 
 CREATE TABLE guitars (
@@ -15,3 +17,4 @@ CREATE TABLE guitars (
     sell_price FLOAT,
     manufacturer_id INT REFERENCES manufacturers(id)
 );
+

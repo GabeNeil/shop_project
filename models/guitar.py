@@ -1,5 +1,5 @@
 class Guitar:
-    def __init__(self, name, description, quantity, buy_cost, sell_price, manufacturer = None, id = None):
+    def __init__(self, name, description, quantity, buy_cost, sell_price, manufacturer, id = None):
         self.name = name
         self.description = description
         self.quantity = quantity 

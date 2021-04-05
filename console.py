@@ -1,21 +1,29 @@
-import pdb
-
 from models.shop import Shop
 from models.guitar import Guitar 
 from models.manufacturer import Manufacturer
 
-shop = Shop("Gabe's Gabetars", 4000)
+import repositories.guitar_respository as guitar_respository
+import repositories.manufacturer_repository as manufacturer_repository
 
 
-guitar1 = Guitar("Stratocaster", "classic, timeless design", 5, 200, 600, "Fender")
+guitar_respository.delete_all()
+manufacturer_repository.delete_all()
 
-guitar2 = Guitar("Les Paul", "perfect for hard rock", 3, 500, 1000, "Gibson")
+# shop = Shop("Gabe's Gabetars", 4000)
 
+Fender = Manufacturer("Fender")
+manufacturer_repository.save(Fender)
 
-manufacturer1 = Manufacturer("Fender")
+Gibson = Manufacturer("Gibson")
+manufacturer_repository.save(Gibson)
 
-manufacturer2 = Manufacturer("Gibson")
+guitar1 = Guitar("Stratocaster", "classic design", 5, 200, 600, Fender)
+guitar_respository.save(guitar1)
 
+guitar2 = Guitar("Les Paul", "perfect for hard rock", 3, 500, 1000, Gibson)
+guitar_respository.save(guitar2)
+
+manufacturer_repository.all_guitars(Fender)
 
 
 
