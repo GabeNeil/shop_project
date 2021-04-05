@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from repositories import guitar_respository
 from repositories import manufacturer_repository
@@ -20,3 +20,9 @@ def show_guitars():
 def show_manufacturers():
     manufacturers = manufacturer_repository.select_all()
     return render_template("functions/manufacturers.html", all_manufacturers = manufacturers)
+
+@guitar_blueprint.route("/manufacturers", methods=['POST'])
+def add_manufacturer():
+    name = request.form['name']
+    manufacturer = Manufacturer(name)
+    manufacturer_repository.save(manufacturer)

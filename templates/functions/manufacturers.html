@@ -8,5 +8,22 @@
         {{manufacturer.name}}
     </div>
 {% endfor %}
+<!-- needs a form to add manufacturer
+and similar form needed on guitar page
 
+it should look something like this
+form:
+enter name etc, 
+this gets fed to the save function in the 
+manufacturer repo-->
+<h2>Add new manufacturer</h2>
+<div>
+    <form action="/manufacturers" method="POST">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Name" required autofocus>
+    </div>
+    <button type="submit">Add manufacturer</button>
+    </form>
+</div>
 {% endblock %}
