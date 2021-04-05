@@ -21,21 +21,24 @@ def select_all():
 
     sql = "SELECT * FROM guitars"
     results = run_sql(sql)
+    print(results)
 
     for row in results:
-        guitar = Guitar(row['name'], row['description'], row['quantity'], row['buy_cost'], row['sell_price'], row['manufacturer'])
+        manufacturer = manufacturer_repository.select(row['manufacturer_id'])
+        manufacturer_name = manufacturer.name
+        guitar = Guitar(row['name'], row['description'], row['quantity'], row['buy_cost'], row['sell_price'], manufacturer_name)
         guitars.append(guitar)
     return guitars 
 
 
 def select(id):
     guitar = None
-    sql = "SELECT * FROM books WHERE id = %s"
+    sql = "SELECT * FROM guitars WHERE id = %s"
     values = [id]
-    result run_sql(sql, values)[0]
+    result = run_sql(sql, values)[0]
 
     if result is not None:
-        manufacturer = manufacturer_repository.select(result['author_id'])
+        manufacturer = manufacturer_repository.select(result['manufacturer_id'])
         guitar = Guitar(result['name'], result['description'], result['quantity'], result['buy_cost'], result['sell_price'], manufacturer, result['id'])
 
     return guitar 

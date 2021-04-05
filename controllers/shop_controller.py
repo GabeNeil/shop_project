@@ -11,5 +11,12 @@ from flask import Blueprint
 
 guitar_blueprint = Blueprint("guitars", __name__)
 
-@guitar_blueprint.route("/")
-def 
+@guitar_blueprint.route("/guitars")
+def show_guitars():
+    guitars = guitar_respository.select_all()
+    return render_template("functions/guitars.html", all_guitars = guitars)
+
+@guitar_blueprint.route("/manufacturers")
+def show_manufacturers():
+    manufacturers = manufacturer_repository.select_all()
+    return render_template("functions/manufacturers.html", all_manufacturers = manufacturers)

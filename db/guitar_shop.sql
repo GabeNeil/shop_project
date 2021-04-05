@@ -2,6 +2,8 @@ DROP TABLE IF EXISTS guitars;
 
 DROP TABLE IF EXISTS manufacturers;
 
+DROP TABLE IF EXISTS shops;
+
 
 CREATE TABLE manufacturers (
     id SERIAL PRIMARY KEY,
@@ -18,3 +20,9 @@ CREATE TABLE guitars (
     manufacturer_id INT REFERENCES manufacturers(id)
 );
 
+
+CREATE TABLE shops (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR,
+    till INT
+);

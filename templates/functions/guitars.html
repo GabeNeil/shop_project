@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for guitar in all_guitars %}
+    <div>
+        {{guitar.name}}, {{guitar.manufacturer}}
+        <div>
+            Quantity - {{guitar.quantity}}
+        </div>
+        <div>
+            Description - {{guitar.description}}
+        </div>
+        <div>
+            Cost to Buy (£) - {{guitar.buy_cost}}
+        </div>
+        <div>
+            Selling Price (£) - {{guitar.sell_price}}
+        </div>
+    </div>
+
+{% endfor %}
+
+{% endblock %}
