@@ -40,4 +40,12 @@ def select(id):
 
     return guitar 
 
+def delete(id):
+    sql = "DELETE FROM guitars WHERE id = %s"
+    values = [id]
+    run_sql(sql, values)
 
+def update(guitar):
+    sql = "UPDATE guitars SET (name, description, quantity, buy_cost, sell_price, manufacturer_id) = (%s, %s, %s, %s, %s, %s) WHERE id = %s"
+    values = [guitar.name, guitar.description, guitar.quantity, guitar.buy_cost, guitar.sell_price, guitar.manufacturer.id, guitar.id]
+    run_sql(sql, values)
