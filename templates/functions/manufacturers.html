@@ -1,3 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h2>Manufacturer List</h2>
+
+{% for manufacturer in all_manufacturers %}
+    <div>
+        {{manufacturer.name}}
+    </div>
+{% endfor %}
+
+{% endblock %}
