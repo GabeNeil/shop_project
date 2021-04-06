@@ -91,3 +91,9 @@ def update_guitar(id):
     guitar = Guitar(name, description, quantity, buy_cost, sell_price, manufacturer, id)
     guitar_respository.update(guitar)
     return redirect('/guitars')
+
+
+@guitar_blueprint.route("/guitars/<id>/delete", methods=['GET','POST'])
+def delete_guitar(id):
+    guitar_respository.delete(id)
+    return redirect("/guitars")
