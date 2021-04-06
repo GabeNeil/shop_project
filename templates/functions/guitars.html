@@ -3,22 +3,28 @@
 {% block content %}
 <h2>Guitar List</h2>
 
+<p>Note: a guitar with its quantity coloured in red is low on stock and more will need to be ordered.</p>
+
 {% for guitar in all_guitars %}
     <div>
         <ul>
             <li>
                 <a href="/guitars/{{guitar.id}}">{{guitar.name}}</a>, {{guitar.manufacturer.name}}
                 <div>
-                    Quantity - {{guitar.quantity}}
+                    {% if guitar.quantity < 5 %}
+                        <p style="color: red;">Quantity - {{guitar.quantity}}</p>
+                    {% else %}
+                        <p>Quantity - {{guitar.quantity}}</p>
+                    {% endif %}
                 </div>
                 <div>
-                    Description - {{guitar.description}}
+                    <p>Description - {{guitar.description}}</p>
                 </div>
                 <div>
-                    Cost to Buy (£) - {{guitar.buy_cost}}
+                    <p>Cost to Buy (£) - {{guitar.buy_cost}}</p>
                 </div>
                 <div>
-                    Selling Price (£) - {{guitar.sell_price}}
+                    <p>Selling Price (£) - {{guitar.sell_price}}</p>
                 </div>
             </li>
         </ul>
