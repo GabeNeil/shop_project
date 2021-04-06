@@ -23,7 +23,7 @@ def all_guitars(manufacturer):
     results = run_sql(sql, values)
 
     for row in results:
-        guitar = Guitar(row['name'], row['description'], row['quantity'], row['buy_cost'], row['sell_price'], row['manufacturer'], row['id'])
+        guitar = Guitar(row['name'], row['description'], row['quantity'], row['buy_cost'], row['sell_price'], row['manufacturer_id'], row['id'])
         guitars.append(guitar)
     return guitars
 
@@ -55,7 +55,7 @@ def delete(id):
 
 
 def update(manufacturer):
-    sql = "UPDATE manufacturers SET (name) = (%s) WHERE id = %s"
+    sql = "UPDATE manufacturers SET name = %s WHERE id = %s"
     values = [manufacturer.name, manufacturer.id]
     run_sql(sql, values)
     

@@ -13,8 +13,9 @@ guitar_blueprint = Blueprint("guitars", __name__)
 
 @guitar_blueprint.route("/guitars")
 def show_guitars():
+    manufacturers = manufacturer_repository.select_all()
     guitars = guitar_respository.select_all()
-    return render_template("functions/guitars.html", all_guitars = guitars)
+    return render_template("functions/guitars.html", all_guitars = guitars, all_manufacturers = manufacturers)
 
 @guitar_blueprint.route("/manufacturers")
 def show_manufacturers():
@@ -27,3 +28,66 @@ def add_manufacturer():
     manufacturer = Manufacturer(name)
     manufacturer_repository.save(manufacturer)
     return redirect('/manufacturers')
+
+@guitar_blueprint.route("/manufacturers/<id>")
+def show_manufacturer(id):
+    manufacturer = manufacturer_repository.select(id)
+    manu_guitars = manufacturer_repository.all_guitars(manufacturer)
+    return render_template("functions/showman.html", manufacturer = manufacturer, manu_guitars = manu_guitars)
+
+@guitar_blueprint.route("/manufacturers/<id>/edit")
+def man_edit_page(id):
+    manufacturer = manufacturer_repository.select(id)
+    return render_template("functions/editmanu.html", manufacturer = manufacturer)
+
+@guitar_blueprint.route("/manufacturers/<id>", methods=['POST'])
+def update_manufacturer(id):
+    name = request.form['name']
+    manufacturer = Manufacturer(name, id)
+    manufacturer_repository.update(manufacturer)
+    return redirect('/manufacturers')
+
+@guitar_blueprint.route("/manufacturers/<id>/delete", methods=['GET','POST'])
+def delete_manufacturer(id):
+    manufacturer_repository.delete(id)
+    return redirect("/manufacturers")
+
+
+@guitar_blueprint.route("/guitars", methods=['POST'])
+def add_guitar():
+    name = request.form['name']
+    description = request.form['description']
+    quantity = request.form['quantity']
+    buy_cost = request.form['buy_cost']
+    sell_price = request.form['sell_price']
+    manufacturer_id = request.form['manufacturer_id']
+    manufacturer = manufacturer_repository.select(manufacturer_id)
+    guitar = Guitar(name, description, quantity, buy_cost, sell_price, manufacturer)
+    guitar_respository.save(guitar)
+    return redirect('/guitars')
+
+
+@guitar_blueprint.route("/guitars/<id>", methods=['GET'])
+def show_guitar(id):
+    guitar = guitar_respository.select(id)
+    return render_template('functions/showguitar.html', guitar = guitar)
+
+
+@guitar_blueprint.route("/guitars/<id>/edit")
+def guitar_edit_page(id):
+    guitar = guitar_respository.select(id)
+    manufacturers = manufacturer_repository.select_all()
+    return render_template('functions/editguitar.html', guitar = guitar, all_manufacturers = manufacturers)
+
+@guitar_blueprint.route("/guitars/<id>", methods=['POST'])
+def update_guitar(id):
+    name = request.form['name']
+    description = request.form['description']
+    quantity = request.form['quantity']
+    buy_cost = request.form['buy_cost']
+    sell_price = request.form['sell_price']
+    manufacturer_id = request.form['manufacturer_id']
+    manufacturer = manufacturer_repository.select(manufacturer_id)
+    guitar = Guitar(name, description, quantity, buy_cost, sell_price, manufacturer, id)
+    guitar_respository.update(guitar)
+    return redirect('/guitars')

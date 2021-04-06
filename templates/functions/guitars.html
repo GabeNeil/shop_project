@@ -5,21 +5,59 @@
 
 {% for guitar in all_guitars %}
     <div>
-        {{guitar.name}}, {{guitar.manufacturer}}
-        <div>
-            Quantity - {{guitar.quantity}}
-        </div>
-        <div>
-            Description - {{guitar.description}}
-        </div>
-        <div>
-            Cost to Buy (£) - {{guitar.buy_cost}}
-        </div>
-        <div>
-            Selling Price (£) - {{guitar.sell_price}}
-        </div>
+        <ul>
+            <li>
+                <a href="/guitars/{{guitar.id}}">{{guitar.name}}</a>, {{guitar.manufacturer.name}}
+                <div>
+                    Quantity - {{guitar.quantity}}
+                </div>
+                <div>
+                    Description - {{guitar.description}}
+                </div>
+                <div>
+                    Cost to Buy (£) - {{guitar.buy_cost}}
+                </div>
+                <div>
+                    Selling Price (£) - {{guitar.sell_price}}
+                </div>
+            </li>
+        </ul>
     </div>
 
 {% endfor %}
 <!-- needs form here, see manufacturers page -->
+<div>
+    <h2>Add new guitar</h2>
+    <form action="/guitars" method="POST">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id = "name" placeholder="Name" name = "name" required autofocus>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <input type="text" id = "description" placeholder="sales copy" name = "description" required>
+    </div>
+    <div>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id = "quantity" placeholder="0" name = "quantity" required>
+    </div>
+    <div>
+        <label for="buy_cost">Buy Cost (£):</label>
+        <input type="number" id = "buy_cost" placeholder="0" name = "buy_cost" required>
+    </div>
+    <div>
+        <label for="sell_price">Sell Price (£):</label>
+        <input type="number" id = sell_price placeholder="0" name = "sell_price" required>
+    </div>
+    <div>
+        <label for="manufacturer">Manufacturer:</label>
+        <select name="manufacturer_id" id="manufacturer">
+            {% for manufacturer in all_manufacturers %}
+                <option value="{{manufacturer.id}}">{{manufacturer.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit">Add guitar</button>
+    </form>
+</div>
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <h2>{{guitar.name}}</h2>
+    <h3>{{guitar.manufacturer.name}}</h3>
+    <a href="/guitars/{{guitar.id}}/edit">Edit</a>
+    <a href="/guitars/{{guitar.id}}/delete">Delete</a>
+    <div>
+        <ul>
+            <li>Quantity - {{guitar.quantity}}</li>
+            <li>Cost to buy (£) - {{guitar.buy_cost}}</li>
+            <li>Selling Price (£) - {{guitar.sell_price}}</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

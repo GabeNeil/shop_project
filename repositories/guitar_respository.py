@@ -21,12 +21,10 @@ def select_all():
 
     sql = "SELECT * FROM guitars"
     results = run_sql(sql)
-    print(results)
 
     for row in results:
         manufacturer = manufacturer_repository.select(row['manufacturer_id'])
-        manufacturer_name = manufacturer.name
-        guitar = Guitar(row['name'], row['description'], row['quantity'], row['buy_cost'], row['sell_price'], manufacturer_name)
+        guitar = Guitar(row['name'], row['description'], row['quantity'], row['buy_cost'], row['sell_price'], manufacturer, row['id'])
         guitars.append(guitar)
     return guitars 
 

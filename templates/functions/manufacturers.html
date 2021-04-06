@@ -5,7 +5,7 @@
 
 {% for manufacturer in all_manufacturers %}
     <div>
-        {{manufacturer.name}}
+        <a href="/manufacturers/{{manufacturer.id}}">{{manufacturer.name}}</a>
     </div>
 {% endfor %}
 <!-- needs a form to add manufacturer

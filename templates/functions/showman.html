@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    <h2>{{manufacturer.name}}</h2>
+    <a href="/manufacturers/{{manufacturer.id}}/edit">Edit</a>
+    <a href="/manufacturers/{{manufacturer.id}}/delete">Delete</a>
+    {% for guitar in manu_guitars %}
+    <div> <p>Guitars</p>
+        <ul>
+            <li>Name - {{guitar.name}}</li>
+            <li>Description - {{guitar.description}}</li>
+            <li>Quantity - {{guitar.quantity}}</li>
+            <li>Buy Cost - {{guitar.buy_cost}}</li>
+            <li>Sell Price - {{guitar.sell_price}}</li>
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
