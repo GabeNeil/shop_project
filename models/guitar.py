@@ -7,3 +7,7 @@ class Guitar:
         self.sell_price = sell_price
         self.manufacturer = manufacturer
         self.id = id
+
+    def calculate_markup(self):
+        result = self.sell_price - self.buy_cost
+        return result 

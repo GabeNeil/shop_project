@@ -72,7 +72,8 @@ def add_guitar():
 @guitar_blueprint.route("/guitars/<id>", methods=['GET'])
 def show_guitar(id):
     guitar = guitar_respository.select(id)
-    return render_template('functions/showguitar.html', guitar = guitar)
+    guitar_markup = guitar.calculate_markup()
+    return render_template('functions/showguitar.html', guitar = guitar, guitar_markup = guitar_markup)
 
 
 @guitar_blueprint.route("/guitars/<id>/edit")
