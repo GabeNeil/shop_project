@@ -2,10 +2,12 @@ from flask import Flask, render_template, request, redirect
 
 from repositories import guitar_respository
 from repositories import manufacturer_repository
+from repositories import shop_repository
 
 
 from models.guitar import Guitar
 from models.manufacturer import Manufacturer
+from models.shop import Shop
 
 from flask import Blueprint
 
@@ -97,3 +99,34 @@ def update_guitar(id):
 def delete_guitar(id):
     guitar_respository.delete(id)
     return redirect("/guitars")
+
+@guitar_blueprint.route("/till")
+def get_shop():
+    shops = shop_repository.select_all()
+    return render_template('functions/shop.html', shops = shops)
+
+@guitar_blueprint.route("/till/<id>")
+def get_till(id):
+    shop = shop_repository.select(id)
+    return render_template('functions/till.html', shop = shop)
+
+@guitar_blueprint.route("/guitars/<id>/order")
+def get_order_page(id):
+    shops = shop_repository.select_all()
+    guitar = guitar_respository.select(id)
+    return render_template('functions/order.html', guitar = guitar, shops = shops)
+
+@guitar_blueprint.route("/guitars/<id>/order", methods=["POST"])
+def order_guitars(id):
+    guitar = guitar_respository.select(id)
+    new_quantity = int(request.form['quantity'])
+    shop_id = request.form['shop_id']
+    shop = shop_repository.select(shop_id)
+    amount = guitar.buy_cost * new_quantity
+    print(shop.id)
+    print(guitar.buy_cost)
+    shop.till = shop.till - amount
+    shop_repository.update(shop)
+    guitar.quantity = guitar.quantity + new_quantity
+    guitar_respository.update(guitar)
+    return redirect(f"/guitars/{guitar.id}")

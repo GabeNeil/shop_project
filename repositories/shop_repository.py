@@ -35,7 +35,7 @@ def select(id):
     result = run_sql(sql, values)[0]
 
     if result is not None:
-        shop = Shop(result['name'], result['till'])
+        shop = Shop(result['name'], result['till'], result['id'])
         
     return shop
 

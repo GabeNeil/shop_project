@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Order more {{guitar.name}}s</h1>
+
+<form action="/guitars/{{guitar.id}}/order" method="POST">
+    <div>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id = "quantity" name = "quantity" required>
+    </div>
+    <label for="shop">Shop</label>
+    <select name="shop_id" id="shop">
+        {% for shop in shops %}
+        <option value="{{shop.id}}">{{shop.name}}</option>
+        {% endfor %} 
+    </select>
+    <div>
+        <button type="submit">Place Order</button>
+    </div>
+</form>
+
+{% endblock %}

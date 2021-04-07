@@ -26,13 +26,13 @@ guitar_respository.save(guitar1)
 guitar2 = Guitar("Les Paul", "perfect for hard rock", 3, 500, 1000, Gibson)
 guitar_respository.save(guitar2)
 
-shop1 = Shop("Gabetars", 3000)
+shop1 = Shop("Gabetars", 3500)
 shop_repository.save(shop1)
 
-shop1.till = 3500
+shop1.till = shop1.till - 500
 shop_repository.update(shop1)
 
-guitar_respository.select_all()
+pdb.set_trace()
 
 
 
