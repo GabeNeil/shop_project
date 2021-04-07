@@ -123,10 +123,27 @@ def order_guitars(id):
     shop_id = request.form['shop_id']
     shop = shop_repository.select(shop_id)
     amount = guitar.buy_cost * new_quantity
-    print(shop.id)
-    print(guitar.buy_cost)
     shop.till = shop.till - amount
     shop_repository.update(shop)
     guitar.quantity = guitar.quantity + new_quantity
+    guitar_respository.update(guitar)
+    return redirect(f"/guitars/{guitar.id}")
+
+@guitar_blueprint.route("/guitars/<id>/sell")
+def get_sales_page(id):
+    shops = shop_repository.select_all()
+    guitar = guitar_respository.select(id)
+    return render_template('functions/sell.html', shops = shops, guitar = guitar)
+
+@guitar_blueprint.route("/guitars/<id>/sell", methods=["POST"])
+def sell_guitars(id):
+    guitar = guitar_respository.select(id)
+    sale_quantity = int(request.form['quantity'])
+    shop_id = request.form['shop_id']
+    shop = shop_repository.select(shop_id)
+    sale_amount = guitar.sell_price * sale_quantity
+    shop.till = shop.till + sale_amount
+    shop_repository.update(shop)
+    guitar.quantity = guitar.quantity - sale_quantity
     guitar_respository.update(guitar)
     return redirect(f"/guitars/{guitar.id}")
