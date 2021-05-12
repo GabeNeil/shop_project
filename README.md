@@ -21,6 +21,10 @@ Then in the terminal at the root folder:
 
 psql -d guitar_shop -f db/guitar_shop.sql
 
+Then again in terminal at the root folder: 
+
+python3 console.py
+
 Then at the root folder:
 
 flask run 
